@@ -16,3 +16,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+    Route::get('/home', function () {
+        return view('admin.adminPage');
+    });
+
+Route::group(['middleware' => ['admin']], function () {
+    Route::get('/adminPage', function () {
+        return view('admin.adminPage');
+    });
+    Route::get('/home', function () {
+        return view('admin.adminPage');
+    });
+});
+
+
+
