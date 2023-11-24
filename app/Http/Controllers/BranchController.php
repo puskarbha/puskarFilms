@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Branch;
+use App\Models\Movie;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class BranchController extends Controller
     {
         $branches = Branch::all();
         $users = User::select('id', 'name')->get();
-        return view('admin.branchList', compact('branches','users'));
+        return view('admin.branchList', compact('branches', 'users'));
 
     }
 
@@ -41,13 +42,20 @@ class BranchController extends Controller
         return redirect('/manage-branch')->with('message', '');
     }
 
-    public function editBranch($id){
-        $branch=Branch::find($id);
-        return view('admin.updateBranch',compact('branch'));
+    public function editBranch($id)
+    {
+        $branch = Branch::find($id);
+        return view('admin.updateBranch', compact('branch'));
     }
 
-public function updateBranch(Request $request,$id){
-    $branch=Branch::findOrFail($id);
+    public function updateBranch(Request $request, $id)
+    {
+        $branch = Branch::findOrFail($id);
+        $branch->name = $request->input('branchName');
+        $branch->address = $request->input('branchAddress');
+        $branch->save();
+        return redirect('/manage-branch')->with('message', '');
+    }
 
-}
+
 }

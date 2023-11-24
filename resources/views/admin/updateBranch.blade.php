@@ -7,20 +7,21 @@
             <h2 class="mt-2">Branch Details</h2>
             <div class="mb-3">
                 <label for="branchName" class="form-label">Branch Name</label>
-                <input type="text"  class="form-control" id="branchName" name="branchName">
+                <input type="text"  class="form-control" id="branchName" name="branchName" value="{{$branch->name}}">
             </div>
             <div class="mb-3">
                 <label for="branchAddress" class="form-label">Address</label>
-                <input type="text" class="form-control" id="branchAddress" name="branchAddress">
+                <input type="text" class="form-control" id="branchAddress" name="branchAddress" value="{{$branch->address}}">
+                <br>
+                <button type="submit" class="btn btn-primary">Update</button>
             </div>
-
-
+            @if($errors->any())
+                @foreach($errors->all() as $error)
+                    <li>{{$error}}</li>
+                @endforeach
+            @endif
         </form>
-        @if($errors->any())
-            @foreach($errors->all() as $error)
-                <li>{{$error}}</li>
-            @endforeach
-        @endif
+
     </div>
 
 @endsection

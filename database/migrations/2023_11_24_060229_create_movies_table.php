@@ -11,25 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('branches', function (Blueprint $table) {
+        Schema::create('movies', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('manager_id')->nullable();
-            $table->foreign('manager_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('set null');
-            $table->string('address');
+            $table->string('cast');
+            $table->string('director');
+            $table->string('genre');
+            $table->string('language');
+            $table->string('description')->nullable();
+            $table->string('thumbnail');
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('branches');
+        Schema::dropIfExists('movies');
     }
 };
