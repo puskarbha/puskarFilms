@@ -15,11 +15,7 @@
                 <br>
                 <button type="submit" class="btn btn-primary">Update</button>
             </div>
-            @if($errors->any())
-                @foreach($errors->all() as $error)
-                    <li>{{$error}}</li>
-                @endforeach
-            @endif
+
         </form>
 
     </div>

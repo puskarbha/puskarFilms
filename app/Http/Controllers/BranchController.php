@@ -9,9 +9,17 @@ use Illuminate\Http\Request;
 
 class BranchController extends Controller
 {
+
+    protected function branchValidation(){
+        return[
+            'branchName' => 'required|string|max:255',
+            'branchAddress' => 'required|string|max:255',
+        ];
+    }
+
     public function branchList(): mixed
     {
-        $branches = Branch::all();
+        $branches = Branch::latest()->paginate(7);
         $users = User::select('id', 'name')->get();
         return view('admin.branchList', compact('branches', 'users'));
 
@@ -28,10 +36,14 @@ class BranchController extends Controller
 
         $userID = $user->id;
 
+
+        $validatedData = $request->validate($this->branchValidation());
+        $branchName = $validatedData['branchName'];
+        $branchAddress = $validatedData['branchAddress'];
         $branch = new Branch();
-        $branch->name = $request->input('branchName');
+        $branch->name =$branchName;
         $branch->manager_id = $userID;
-        $branch->address = $request->input('branchAddress');
+        $branch->address =$branchAddress;
         $branch->save();
         return redirect('/manage-branch')->with('message', '');
     }
@@ -51,8 +63,13 @@ class BranchController extends Controller
     public function updateBranch(Request $request, $id)
     {
         $branch = Branch::findOrFail($id);
-        $branch->name = $request->input('branchName');
-        $branch->address = $request->input('branchAddress');
+
+        $validatedData = $request->validate($this->branchValidation());
+        $branchName = $validatedData['branchName'];
+        $branchAddress = $validatedData['branchAddress'];
+
+        $branch->name = $branchName;
+        $branch->address = $branchAddress;
         $branch->save();
         return redirect('/manage-branch')->with('message', '');
     }

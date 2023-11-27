@@ -1,18 +1,18 @@
 @extends('layouts.admin')
 @section('adminContent')
-    <div class="container">
+    <div class="container-fluid">
 
-        <h2> Movie Table</h2>
+        <h2 class="text-center pt-3 m-0"> Movie Table</h2>
 
-        <div class="add--branch">
-            <a href="{{ route('addMovie') }}">
+        <div class="add--movie text-right pb-2 mr-3 ">
+            <a class="btn btn-primary" href="{{ route('movies.create') }}">
                 <i class="nav-icon far fa-plus-square"></i>
                 Add Movie
             </a>
         </div>
 
         @if($movies->count() > 0)
-            <table class="table table-bordered">
+            <table class="table table-striped table-hover">
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -37,18 +37,28 @@
                         <td>{{$movie->genre}}</td>
                         <td>{{$movie->language}}</td>
                         <td>{{$movie->description}}</td>
-                        <td>image</td>
                         <td>
-                            <a href="{{ route('editMovie', ['id' => $movie->id]) }}" class="btn btn-warning">Edit</a>
+                            <img src="{{asset('images/Movies')}}/{{$movie->thumbnail}}" alt="" class="img-thumbnail" style="max-height: 200px;">
                         </td>
                         <td>
-                            <a href="{{ route('deleteMovie', ['id' => $movie->id]) }}" class="btn btn-danger">Delete</a>
+                            <a href="{{ route('movies.edit',$movie->id) }}" class="btn btn-warning">Edit</a>
+                        </td>
+                        <td>
+
+                        <form action="{{ route('movies.destroy',$movie->id) }}" method="post">
+                            @csrf
+                            @method("DELETE")
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+
                         </td>
                     </tr>
-
                 @endforeach
                 </tbody>
             </table>
+            <div class="d-flex">
+                {!! $movies->links() !!}
+            </div>
         @else
             <h1>No data Found</h1>
         @endif

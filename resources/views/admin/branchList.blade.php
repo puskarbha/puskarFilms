@@ -4,8 +4,8 @@
 
         <h2>Theater Branch Table</h2>
 
-        <div class="add--branch">
-            <a href="{{ route('addBranch') }}">
+        <div class="add--branch text-right mb-2">
+            <a class="btn btn-primary" href="{{ route('addBranch') }}">
                 <i class="nav-icon far fa-plus-square"></i>
                 Add Branch
             </a>
@@ -27,11 +27,9 @@
                 @foreach($branches as $branch)
                     <tr>
                         <td>{{ $branch->id }}</td>
-                        @foreach($users as $user)
-                            @if($branch->manager_id==$user->id)
-                            <td>{{$user->name}}</td>
-                            @endif
-                        @endforeach
+
+                        <td>{{$branch->manager->name}}</td>
+
 
                         <td>{{ $branch->name }}</td>
                         <td>{{ $branch->address }}</td>
@@ -46,6 +44,9 @@
                 @endforeach
                 </tbody>
             </table>
+            <div class="d-flex">
+                {!! $branches->links() !!}
+            </div>
         @else
             <h1>No data Found</h1>
         @endif

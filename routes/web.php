@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\MovieScheduleController;
+use App\Http\Controllers\ShowTimeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +26,8 @@ Route::get('/home', function () {
 });
 
 Route::group(['middleware' => ['admin']], function () {
+
+
     Route::get('/adminPage', function () {
         return view('admin.adminDashboard');
     });
@@ -48,16 +52,18 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/delete-Branch/{id}', [BranchController::class, 'deleteBranch'])->name('deleteBranch');
 
 //Routes for Movies
+//
+//    Route::get('/add-Movie', function () {
+//        return view('admin.addMovie');
+//    })->name('addMovie');
+//    Route::POST('/push-movie', [MovieController::class, 'pushMovie'])->name('pushMovie');
+//    Route::get('/movies-list', [MovieController::class, 'movieList'])->name('movies-list');
+//    Route::get('/edit-movie/{id}', [MovieController::class, 'editMovie'])->name('editMovie');
+//    Route::POST('/updateMovie/{id}', [MovieController::class, 'updateMovie'])->name('updateMovie');
+//    Route::get('/delete-movie/{id}', [MovieController::class, 'deleteMovie'])->name('deleteMovie');
 
-    Route::get('/add-Movie', function () {
-        return view('admin.addMovie');
-    })->name('addMovie');
-    Route::POST('/push-movie', [MovieController::class, 'pushMovie'])->name('pushMovie');
-    Route::get('/movies-list', [MovieController::class, 'movieList'])->name('movies-list');
-    Route::get('/edit-movie/{id}', [MovieController::class, 'editMovie'])->name('editMovie');
-    Route::POST('/updateMovie/{id}', [MovieController::class, 'updateMovie'])->name('updateMovie');
-    Route::get('/delete-movie/{id}', [MovieController::class, 'deleteMovie'])->name('deleteMovie');
-
+    Route::resource('movies', MovieController::class);
+    Route::resource('show_times',ShowTimeController::class);
 });
 
 

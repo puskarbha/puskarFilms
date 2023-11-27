@@ -13,7 +13,6 @@
                     <a class="nav-link active" aria-current="page" href="{{ url('/home') }}">Home</a>
                 </li>
 <li>
-
     <form class="d-flex" id="logoutForm" action="{{ route('logout') }}" method="POST" style="display: none;">
         @csrf
     </form>

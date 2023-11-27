@@ -92,7 +92,6 @@
             </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->
-
     <!-- /.content-wrapper -->
 
 @endsection
