@@ -8,9 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Branch extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'manager_id', 'address'];
+    protected $fillable = ['name', 'manager_id', 'address','halls'];
 
     public function manager(){
         return $this->belongsTo(User::class);
+    }
+
+    public function showtime(){
+        return $this->hasMany(ShowTime::class);
     }
 }

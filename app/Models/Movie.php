@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Movie extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'cast', 'director', 'genre', 'language', 'description', 'thumbnail'];
+    protected $fillable = ['name', 'cast', 'director', 'genre', 'language', 'description','duration', 'thumbnail'];
     public function showTimes()
     {
         return $this->hasMany(ShowTime::class);

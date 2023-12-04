@@ -5,7 +5,7 @@
         <h2>Theater Branch Table</h2>
 
         <div class="add--branch text-right mb-2">
-            <a class="btn btn-primary" href="{{ route('addBranch') }}">
+            <a class="btn btn-primary" href="{{ route('branches.create') }}">
                 <i class="nav-icon far fa-plus-square"></i>
                 Add Branch
             </a>
@@ -34,10 +34,14 @@
                         <td>{{ $branch->name }}</td>
                         <td>{{ $branch->address }}</td>
                         <td>
-                            <a href="{{ route('editBranch', ['id' => $branch->id]) }}" class="btn btn-warning">Edit</a>
+                            <a href="{{ route('branches.edit',$branch->id)}}" class="btn btn-warning">Edit</a>
                         </td>
                         <td>
-                            <a href="{{ route('deleteBranch', ['id' => $branch->id]) }}" class="btn btn-danger">Delete</a>
+                            <form action="{{route('branches.destroy',$branch->id)}}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
                         </td>
 
                     </tr>

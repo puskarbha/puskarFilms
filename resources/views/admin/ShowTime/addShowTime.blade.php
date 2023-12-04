@@ -21,10 +21,20 @@
                     </label>
                 </div>
             </div>
-
             <div class="mb-3">
-                <label for="duration" class="form-label">Duration (in minutes)</label>
-                <input type="number"  class="form-control" id="duration" name="duration" required>
+                <label for="branchName" class="form-label">branch Name</label>
+                <div class="input-group">
+                    <select name="branch_id" id="branchName" class="form-select" required>
+                        <option disabled selected>- Select branch -</option>
+                        @foreach($branches as $branch)
+                            <option value="{{ $branch->id }}">{{ $branch->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="date" class="form-label">date</label>
+                <input type="date" class="form-control" id="date" name="date" required >
             </div>
 
             <div class="mb-3">
@@ -33,14 +43,37 @@
             </div>
 
             <div class="mb-3">
-                <label for="status" class="form-label">Status</label>
-                <input type="text" class="form-control" id="status" name="status" required>
+                <label for="#">Status</label>
+                <div class="form-check-container pl-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="status" id="comingSoon" value="Coming_soon" checked>
+                        <label class="form-check-label" for="comingSoon">
+                            Coming Soon
+                        </label>
+                    </div>
+
+                    <div class="form-check ">
+                        <input class="form-check-input" type="radio" name="status" id="showingNow" value="Showing_now" >
+                        <label class="form-check-label" for="showingNow">
+                            Showing Now
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="status" id="out" value="out" >
+                        <label class="form-check-label" for="out">
+                            Out
+                        </label>
+                    </div>
+                </div>
+
             </div>
 
             <div class="mb-3 text-center">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
+        {{$errors}}
     </div>
 
 

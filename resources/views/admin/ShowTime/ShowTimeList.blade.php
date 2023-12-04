@@ -18,7 +18,9 @@
                 <tr>
                     <th>ID</th>
                     <th>Movie</th>
-                    <th>Duration</th>
+                    <th>Branch</th>
+                    <th>Date</th>
+                    <th>Time</th>
                     <th>Status</th>
                     <th>Edit</th>
                     <th>Delete</th>
@@ -29,7 +31,9 @@
                     <tr>
                         <td>{{ $show_time->id }}</td>
                         <td>{{ $show_time->movie->name }}</td>
-                        <td>{{ $show_time->duration }}</td>
+                        <td>{{ $show_time->branch->name }}</td>
+                        <td>{{$show_time->date}}</td>
+                        <td>{{$show_time->time}}</td>
                         <td>{{ $show_time->status }}</td>
                         <td>
                             <a href="{{ route('show_times.edit', $show_time->id) }}" class="btn btn-warning">Edit</a>

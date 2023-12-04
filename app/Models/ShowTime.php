@@ -11,6 +11,8 @@ class ShowTime extends Model
     protected $fillable = [
         'movie_id',
         'duration',
+        'branch_id',
+        'date',
         'time',
         'status',
 
@@ -19,5 +21,9 @@ class ShowTime extends Model
     public function movie()
     {
         return $this->belongsTo(Movie::class);
+    }
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
     }
 }

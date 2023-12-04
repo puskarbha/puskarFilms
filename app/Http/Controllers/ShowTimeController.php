@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ShowTimeRequest;
+use App\Models\Branch;
 use App\Models\Movie;
 use App\Models\ShowTime;
 use Illuminate\Http\Request;
@@ -26,8 +27,9 @@ class ShowTimeController extends Controller
      */
     public function create()
     {
+        $branches=Branch::all();
         $movies = Movie::all();
-        return view('admin.ShowTime.addShowTime',compact('movies'));
+        return view('admin.ShowTime.addShowTime',compact('movies','branches'));
     }
 
     /**
@@ -54,18 +56,17 @@ class ShowTimeController extends Controller
      */
     public function edit(string $id)
     {
+        $branches=Branch::all();
         $showTime=ShowTime::findOrFail($id);
         $movies=Movie::all();
-        return view('admin.ShowTime.editShowTime',compact('showTime','movies'));
+        return view('admin.ShowTime.editShowTime',compact('showTime','movies','branches'));
     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(ShowTimeRequest $request,  $id)
-    {
-
-        $showTime=ShowTime::findOrFail($id);
+    {   $showTime=ShowTime::findOrfail($id);
         $validatedData = $request->validated();
         $showTime->update($validatedData);
         return redirect()->route('show_times.index')->with('message','ShowTime updated successfully !!');

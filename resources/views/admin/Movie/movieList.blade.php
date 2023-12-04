@@ -22,6 +22,7 @@
                     <th>Genre</th>
                     <th>Language</th>
                     <th>Description</th>
+                    <th>Duration</th>
                     <th>Thumbnail</th>
                     <th>Edit</th>
                     <th>Delete </th>
@@ -37,6 +38,8 @@
                         <td>{{$movie->genre}}</td>
                         <td>{{$movie->language}}</td>
                         <td>{{$movie->description}}</td>
+                        <td>{{$movie->duration}}</td>
+
                         <td>
                             <img src="{{asset('images/Movies')}}/{{$movie->thumbnail}}" alt="" class="img-thumbnail" style="max-height: 200px;">
                         </td>

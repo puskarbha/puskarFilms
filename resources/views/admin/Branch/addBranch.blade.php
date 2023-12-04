@@ -2,7 +2,7 @@
 @section('adminContent')
 
 <div class="addBranch--form ml-3 mr-3">
-    <form method="POST" action="{{route('pushBranch')}}">
+    <form method="POST" action="{{route('branches.store')}}">
         @csrf
         <h2 class="mt-2">Branch Details</h2>
         <div class="mb-3">
@@ -13,7 +13,17 @@
             <label for="branchAddress" class="form-label">Address</label>
             <input type="text" class="form-control" id="branchAddress" name="branchAddress">
         </div>
+        <div class="mb-3">
+            <label for="">Halls </label>
+            <div id="container" class="mx-5">
+                Hall Name:  <input type="text" class="form-control " id="halls" name="hall[]">
 
+            </div>
+            <a href="#" id="filldetails" class="btn btn-primary mt-2 mx-5" onclick="addFields()">
+            Add hall
+            <i class="fa-solid fa-circle-plus" style="color: #99c1f1;"></i>
+             </a>
+        </div>
         <h2>Setup Login Details for Branch Manager</h2>
         <div class="mb-3">
             <label for="userName" class="form-label">Name</label>
@@ -26,6 +36,10 @@
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             <input type="password" class="form-control" id="password" name="userPassword">
+        </div>
+
+
+        <div class="mb-3">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
     </form>
@@ -35,5 +49,20 @@
         @endforeach
     @endif
 </div>
+<script type='text/javascript'>
+    function addFields(){
 
+        var container = document.getElementById("container");
+
+            container.appendChild(document.createTextNode("Hall Name:" ));
+            
+            var input = document.createElement("input");
+            input.type = "text";
+            input.name = "hall[]";
+            input.className="form-control ";
+            container.appendChild(input);
+            container.appendChild(document.createElement("br"));
+    
+    }
+</script>
 @endsection

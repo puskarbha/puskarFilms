@@ -13,6 +13,7 @@ class MovieController extends Controller
         'director' => 'required|string|max:255',
         'genre' => 'required|string|max:255',
         'language' => 'required|string|max:255',
+        'duration' => 'required|integer',
         'description' => 'nullable|string',
         'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
     ];
@@ -39,22 +40,17 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        $movie = Movie::findOrFail($id);
         $validatedData = $request->validate($this->rules);
-
+        $movie = new Movie();
         if ($request->hasFile('thumbnail')) {
             $image = $request->file('thumbnail');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('images/Movies'), $imageName);
             $validatedData['thumbnail'] = $imageName;
-
         }
-        else{
-            $validatedData['thumbnail']=$movie->thumbnail;
-        }
-        $movie->update($validatedData);
+        $movie->fill($validatedData);
         $movie->save();
-        return redirect()->route('movies.index');
+        return redirect()->route('movies.index')->with('message','Movie added successfully');
 
     }
 
@@ -87,21 +83,15 @@ class MovieController extends Controller
             $image = $request->file('thumbnail');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('images/Movies'), $imageName);
-            $movie->thumbnail = $imageName;
+            $validatedData['thumbnail'] = $imageName;
         } else {
-            $movie->thumbnail = $movie->thumbnail;
+            $validatedData['thumbnail'] = $movie->thumbnail;
         }
 
 
-        $movie->name = $request->input('name');
-        $movie->cast = $request->input('cast');
-        $movie->director = $request->input('director');
-        $movie->genre = $request->input('genre');
-        $movie->language = $request->input('language');
-        $movie->description = $request->input('description');
 
-        $movie->save();
-        return redirect()->route('movies.index');
+        $movie->update($validatedData);
+        return redirect()->route('movies.index')->with('message','Movie Updated successfully');
     }
 
     /**
@@ -111,6 +101,6 @@ class MovieController extends Controller
 
     {
         Movie::findOrFail($id)->delete();
-        return redirect()->route('movies.index')->with('message', '');
+        return redirect()->route('movies.index')->with('message', 'Movie deleted successfully');
     }
 }

@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('movie_id')->nullable();
             $table->unsignedBigInteger('branch_id')->nullable();
+            $table->string('hall_name');
             $table->unsignedBigInteger('show_time_id')->nullable();
-            $table->integer('seat_no');
+            $table->string('seat_no');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->enum('reservation_status', ['available','reserved','sold'])->default('available');
             $table->timestamps();

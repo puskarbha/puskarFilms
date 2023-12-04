@@ -21,17 +21,21 @@
                 <input type="text" name='director' class="form-control" id="director"  required value="{{$movie->director}}">
             </div>
             <div class="mb-3">
-                <label for="language" class="form-label">language</label>
-                <input type="text" class="form-control" id="language" aria-describedby="emailHelp" name="language" required value="{{$movie->language}}">
-            </div>
-            <div class="mb-3">
                 <label for="genre" class="form-label">Genre</label>
                 <input type="text" class="form-control" id="genre" aria-describedby="emailHelp" name="genre" required  value="{{$movie->genre}}">
             </div>
             <div class="mb-3">
+                <label for="language" class="form-label">language</label>
+                <input type="text" class="form-control" id="language" aria-describedby="emailHelp" name="language" required value="{{$movie->language}}">
+            </div>
+
+            <div class="mb-3">
                 <label for="description" class="form-label">description</label>
                 <textarea  class="form-control" id="description" name="description" rows="4" cols="50" >{{$movie->description}}</textarea>
-
+            </div>
+            <div class="mb-3">
+                <label for="duration" class="form-label">Duration (in minutes)</label>
+                <input type="number"  class="form-control" id="duration" name="duration" value="{{$movie->duration}}" required >
             </div>
             <div class="mb-3">
                 <label for="thumbnail" class="form-label">Thumbnail</label>
@@ -41,7 +45,7 @@
                 <br>
                 <button type="submit" class="btn btn-primary">Update</button>
             </div>
-
+{{$errors}}
         </form>
 
     </div>

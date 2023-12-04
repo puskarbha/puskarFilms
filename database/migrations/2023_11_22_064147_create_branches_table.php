@@ -20,6 +20,7 @@ return new class extends Migration
                 ->on('users')
                 ->onDelete('set null');
             $table->string('address');
+            $table->json('halls')->nullable();
             $table->timestamps();
         });
     }
