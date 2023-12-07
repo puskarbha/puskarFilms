@@ -16,9 +16,10 @@
         <div class="mb-3">
             <label for="">Halls </label>
             <div id="container" class="mx-5">
-                Hall Name:  <input type="text" class="form-control " id="halls" name="hall[]">
-
+                Hall Name:  <input type="text"  id="halls" name="halls[]">
+                Seat Limit: <input type="number"  id="seat_limit" name="seat_limits[]"> <br>
             </div>
+
             <a href="#" id="filldetails" class="btn btn-primary mt-2 mx-5" onclick="addFields()">
             Add hall
             <i class="fa-solid fa-circle-plus" style="color: #99c1f1;"></i>
@@ -31,7 +32,7 @@
         </div>
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input type="userEmail" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="userEmail">
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="userEmail">
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
@@ -54,15 +55,22 @@
 
         var container = document.getElementById("container");
 
-            container.appendChild(document.createTextNode("Hall Name:" ));
-            
+            container.appendChild(document.createTextNode("Hall Name: " ));
             var input = document.createElement("input");
             input.type = "text";
-            input.name = "hall[]";
-            input.className="form-control ";
+            input.name = "halls[]";
+
             container.appendChild(input);
+
+            container.appendChild(document.createTextNode(" Seat Limit: "));
+
+            var sl_input = document.createElement("input");
+            sl_input.type = "number";
+            sl_input.name = "seat_limits[]";
+
+            container.appendChild(sl_input);
             container.appendChild(document.createElement("br"));
-    
+
     }
 </script>
 @endsection

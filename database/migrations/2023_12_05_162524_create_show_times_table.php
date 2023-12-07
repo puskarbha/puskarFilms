@@ -13,14 +13,12 @@ return new class extends Migration
     {
         Schema::create('show_times', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('movie_id')->nullable();
-            $table->foreignId('branch_id')->constrained('branches')->onDelete('cascade');
-            $table->string('hall')->nullable();
+            $table->foreignId('movie_id')->constrained('movies')->onDelete('cascade');
+            $table->foreignId('hall_id')->constrained('halls')->onDelete('cascade');
             $table->date('date');
             $table->time('time');
             $table->enum('status', ['Showing_now','Coming_soon','out'])->default('Coming_soon');
             $table->timestamps();
-            $table->foreign('movie_id')->references('id')->on('movies')->onDelete('set null');
         });
     }
 

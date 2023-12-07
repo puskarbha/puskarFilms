@@ -2,62 +2,50 @@
 @section('adminContent')
     <div class="container">
 
-        <h2>Theater Branch Table</h2>
+        <h2>Theater Hall List</h2>
 
         <div class="add--branch text-right mb-2">
-            <a class="btn btn-primary" href="{{ route('branches.create') }}">
+            <a class="btn btn-primary" href="{{ route('halls.create') }}">
                 <i class="nav-icon far fa-plus-square"></i>
-                Add Branch
+                Add Hall
             </a>
         </div>
 
-        @if($branches->count() > 0)
+        @if($halls->count() > 0)
             <table class="table table-bordered">
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Manager Name</th>
                     <th>Name</th>
-                    <th>Address</th>
-                    <th>Halls</th>
+                    <th>Branch</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($branches as $branch)
+                @foreach($halls as $hall)
                     <tr>
-                        <td>{{ $branch->id }}</td>
+                        <td>{{ $hall->id }}</td>
+                        <td>{{ $hall->hall_name }}</td>
+                        <td>{{$hall->branch->name}}</td>
 
-                        <td>{{$branch->manager->name}}</td>
-
-
-                        <td>{{ $branch->name }}</td>
-                        <td>{{ $branch->address }}</td>
                         <td>
-                            @forelse($branch->halls as $hall)
-                                {{ $hall->hall_name }},
-                            @empty
-                                No Halls
-                            @endforelse
+                            <a href="{{ route('halls.edit',$hall->id)}}" class="btn btn-warning">Edit</a>
                         </td>
                         <td>
-                            <a href="{{ route('branches.edit',$branch->id)}}" class="btn btn-warning">Edit</a>
-                        </td>
-                        <td>
-                            <form action="{{route('branches.destroy',$branch->id)}}" method="post">
+                            <form action="{{route('halls.destroy',$hall->id)}}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger">Delete</button>
                             </form>
                         </td>
-
                     </tr>
                 @endforeach
                 </tbody>
             </table>
+
             <div class="d-flex">
-                {!! $branches->links() !!}
+                {!! $halls->links() !!}
             </div>
         @else
             <h1>No data Found</h1>

@@ -4,7 +4,7 @@
     <nav class="navbar navbar-expand-md navbar-light" id="navbar_sticky">
         <div class="container">
             <a class="navbar-brand text-white fw-bold" href="{{route('home')}}"><i
-                    class="fa fa-video-camera col_red me-1"></i> Planet</a>
+                    class="fa fa-video-camera col_red me-1"></i> P-films</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -13,7 +13,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mb-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                        <a class="nav-link active" aria-current="page" href="{{route('home')}}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="about.html">About Us</a>

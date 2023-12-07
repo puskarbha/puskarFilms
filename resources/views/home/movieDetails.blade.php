@@ -92,19 +92,21 @@
                                                         <h2 class=" text-white">{{ $branch->name }}</h2>
                                                     </div>
                                                     <div class="col-md-9">
-                                                        <div class="row d-flex " >
-                                                            @foreach($movieday0 as $show)
+                                                        <div class="row d-flex ">
+                                                            @foreach($movieDay0 as $show)
                                                                 <div class="showTime--list">
-                                                                    @if($show->branch_id == $branch->id)
+                                                                    @if($show->hall->branch->id == $branch->id)
                                                                         @php
                                                                             $hasShows = true;
                                                                         @endphp
                                                                         <li class="list-group-item text-black movie--hall">
                                                                             <a
-                                                                                class="btn btn-primary " href="{{route('hall_seats',$show->id)}}">
-                                                                              
+                                                                                class="btn btn-primary "
+                                                                                href="{{route('hall_seats',$show->id)}}">
+
                                                                                 {{ $show->time }}
-                                                                                <h6 style="font-size:12px;">Hall : {{$show->hall}}</h6>
+                                                                                <h6 style="font-size:12px;">Hall
+                                                                                    : {{$show->hall->hall_name}}</h6>
                                                                             </a>
                                                                         </li>
                                                                     @endif
@@ -126,17 +128,18 @@
                                     </div>
                                 @endforeach
                             </div>
-                            {{--                         day 0  content ends--}}
+                            {{--                         Day 0  content ends--}}
 
                         </div>
 
-                        {{--                        day 0 ends--}}
+                        {{--                        Day 0 ends--}}
 
-                        {{--                        day 1 start--}}
+                        {{--                        Day 1 start--}}
 
 
                         <div class="tab-pane fade" id="custom-tabs-three-day2" role="tabpanel"
                              aria-labelledby="custom-tabs-three-day2-tab">
+
                             <div class="row">
                                 @foreach($branches as $branch)
                                     <div class="branch--showTime">
@@ -150,19 +153,22 @@
                                                         <h2 class=" text-white">{{ $branch->name }}</h2>
                                                     </div>
                                                     <div class="col-md-9">
-                                                        <div class="row d-flex " >
-                                                            @foreach($movieday1 as $show)
+                                                        <div class="row d-flex ">
+                                                            @foreach($movieDay1 as $show)
                                                                 <div class="showTime--list">
-                                                                    @if($show->branch_id == $branch->id)
+                                                                    @if($show->hall->branch->id == $branch->id)
                                                                         @php
                                                                             $hasShows = true;
                                                                         @endphp
                                                                         <li class="list-group-item text-black movie--hall">
-                                                                            <button
-                                                                                class="btn btn-primary  ">
+                                                                            <a
+                                                                                class="btn btn-primary "
+                                                                                href="{{route('hall_seats',$show->id)}}">
+
                                                                                 {{ $show->time }}
-                                                                               
-                                                                            </button>
+                                                                                <h6 style="font-size:12px;">Hall
+                                                                                    : {{$show->hall->hall_name}}</h6>
+                                                                            </a>
                                                                         </li>
                                                                     @endif
                                                                 </div>
@@ -188,6 +194,7 @@
                         {{--                        day 2 start--}}
                         <div class="tab-pane fade text-black" id="custom-tabs-three-day3" role="tabpanel"
                              aria-labelledby="custom-tabs-three-day3-tab">
+
                             <div class="row">
                                 @foreach($branches as $branch)
                                     <div class="branch--showTime">
@@ -201,16 +208,22 @@
                                                         <h2 class=" text-white">{{ $branch->name }}</h2>
                                                     </div>
                                                     <div class="col-md-9">
-                                                        <div class="row d-flex " >
-                                                            @foreach($movieday2 as $show)
+                                                        <div class="row d-flex ">
+                                                            @foreach($movieDay2 as $show)
                                                                 <div class="showTime--list">
-                                                                    @if($show->branch_id == $branch->id)
+                                                                    @if($show->hall->branch->id == $branch->id)
                                                                         @php
                                                                             $hasShows = true;
                                                                         @endphp
                                                                         <li class="list-group-item text-black movie--hall">
-                                                                            <button
-                                                                                class="btn btn-primary  ">{{ $show->time }}</button>
+                                                                            <a
+                                                                                class="btn btn-primary "
+                                                                                href="{{route('hall_seats',$show->id)}}">
+
+                                                                                {{ $show->time }}
+                                                                                <h6 style="font-size:12px;">Hall
+                                                                                    : {{$show->hall->hall_name}}</h6>
+                                                                            </a>
                                                                         </li>
                                                                     @endif
                                                                 </div>
@@ -237,6 +250,7 @@
                         {{--                        day 3 start--}}
                         <div class="tab-pane fade" id="custom-tabs-three-day4" role="tabpanel"
                              aria-labelledby="custom-tabs-three-day4-tab">
+
                             <div class="row">
                                 @foreach($branches as $branch)
                                     <div class="branch--showTime">
@@ -250,16 +264,22 @@
                                                         <h2 class=" text-white">{{ $branch->name }}</h2>
                                                     </div>
                                                     <div class="col-md-9">
-                                                        <div class="row d-flex " >
-                                                            @foreach($movieday3 as $show)
+                                                        <div class="row d-flex ">
+                                                            @foreach($movieDay3 as $show)
                                                                 <div class="showTime--list">
-                                                                    @if($show->branch_id == $branch->id)
+                                                                    @if($show->hall->branch->id == $branch->id)
                                                                         @php
                                                                             $hasShows = true;
                                                                         @endphp
                                                                         <li class="list-group-item text-black movie--hall">
-                                                                            <button
-                                                                                class="btn btn-primary  ">{{ $show->time }}</button>
+                                                                            <a
+                                                                                class="btn btn-primary "
+                                                                                href="{{route('hall_seats',$show->id)}}">
+
+                                                                                {{ $show->time }}
+                                                                                <h6 style="font-size:12px;">Hall
+                                                                                    : {{$show->hall->hall_name}}</h6>
+                                                                            </a>
                                                                         </li>
                                                                     @endif
                                                                 </div>
@@ -289,4 +309,11 @@
             </div>
         </div>
     </div>
+
+    <!-- jQuery -->
+    <script src="{{asset('assets/plugins/jquery/jquery.min.js')}}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{asset('assets/dist/js/adminlte.min.js')}}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{{asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 @endsection

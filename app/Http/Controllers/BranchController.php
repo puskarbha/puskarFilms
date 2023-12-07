@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Branch;
+use App\Models\Hall;
 use App\Models\User;
+use Database\Seeders\SeatsTableSeeder;
 use Illuminate\Http\Request;
 
 class BranchController extends Controller
@@ -13,7 +15,8 @@ class BranchController extends Controller
         return[
             'branchName' => 'required|string|max:255',
             'branchAddress' => 'required|string|max:255',
-            'hall' => 'array',
+            'halls' => 'array',
+            'seat_limits' => 'array',
 
         ];
     }
@@ -23,8 +26,7 @@ class BranchController extends Controller
     public function index()
     {
         $branches = Branch::latest()->paginate(7);
-        $users = User::select('id', 'name')->get();
-        return view('admin.Branch.branchList', compact('branches', 'users'));
+        return view('admin.Branch.branchList', compact('branches'));
     }
 
     /**
@@ -40,8 +42,6 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
-
-        
         $user = new User();
         $user->name = $request->input('userName');
         $user->email = $request->input('userEmail');
@@ -55,13 +55,31 @@ class BranchController extends Controller
         $validatedData = $request->validate($this->branchValidation());
         $branchName = $validatedData['branchName'];
         $branchAddress = $validatedData['branchAddress'];
-        $branchHall=$validatedData['hall'];
-       
+        $branchHall=$validatedData['halls'];
+        $seat_limit=$validatedData['seat_limits'];
+
         $branch = new Branch();
         $branch->name =$branchName;
         $branch->manager_id = $userID;
         $branch->address =$branchAddress;
-        $branch->halls=json_encode($branchHall);
+        $branch->save();
+
+        $hallsCount = count($request->input('halls'));
+        for($i=0;$i<$hallsCount;$i++)
+        {
+
+            $hall= new Hall();
+            $hall->branch_id=$branch->id;
+            $hall->hall_name = $branchHall[$i];
+            $hall->save();
+            $seeder = new SeatsTableSeeder();
+            $seeder->createSeats($hall->id,  $seat_limit[$i]);
+
+        }
+
+
+
+
         $branch->save();
         return redirect()->route('branches.index')->with('message', 'Branch added successfully');
     }
@@ -93,11 +111,11 @@ class BranchController extends Controller
         $validatedData = $request->validate($this->branchValidation());
         $branchName = $validatedData['branchName'];
         $branchAddress = $validatedData['branchAddress'];
-        $branchHall=$validatedData['hall'];
+
 
         $branch->name = $branchName;
         $branch->address = $branchAddress;
-        $branch->halls=json_encode($branchHall);
+
         $branch->save();
         return redirect()->route('branches.index')->with('message', 'Branch updated successfully');
     }
@@ -107,7 +125,12 @@ class BranchController extends Controller
      */
     public function destroy(string $id)
     {
+
         Branch::find($id)->delete();
         return redirect()->route('branches.index')->with('message', ' Branch deleted successfully ');
     }
+
+
+
+
 }

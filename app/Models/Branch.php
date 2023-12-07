@@ -17,4 +17,8 @@ class Branch extends Model
     public function showtime(){
         return $this->hasMany(ShowTime::class);
     }
+
+    public function halls(){
+        return $this->hasMany(Hall::class);
+    }
 }

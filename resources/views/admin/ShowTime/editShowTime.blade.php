@@ -11,7 +11,7 @@
                 <img id="movie_thumbnail" src="#" alt="image not found" hidden>
                 <label for="movieName" class="form-label">Movie Name</label>
                 <div class="input-group">
-                    <select name="movie_id" id="movieName" class="form-select" required>
+                    <select name="movie_id" id="movieName" class="form-select" required >
 
                         @foreach($movies as $movie)
                             @if($movie->id==$showTime->movie_id)
@@ -29,20 +29,34 @@
                 <div class="mb-3">
                     <label for="branchName" class="form-label">branch Name</label>
                     <div class="input-group">
-                        <select name="branch_id" id="branchName" class="form-select" required>
+                        <select name="branch_id" id="branchName" class="form-select" required onchange="hallSetup()">
                             <option disabled selected>- Select branch -</option>
                             @foreach($branches as $branch)
-                                @if($branch->id==$showTime->branch_id)
+                                @if($branch->id==$showTime->hall->branch->id)
                                     <option value="{{ $branch->id }}" selected>{{ $branch->name }}</option>
                                 @else
                                        <option value="{{ $branch->id }}">{{ $branch->name }}</option>
                                 @endif
-
                             @endforeach
                         </select>
-                        <label class="input-group-text" for="branchName">
-                            <i class="fas fa-film"></i>
-                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-3" id="hall_list">
+                    <div class="input-group">
+                        <label for="hallName" class="form-label">Select Hall:  </label>
+
+                        <select name="hall_id" class="form-select mx-3" id="hallName">
+                        @foreach($showTime->hall->branch->halls as $hall)
+                            @if($hall->id == $showTime->hall_id)
+                                    <option value="{{$hall->id}}" selected>{{$hall->hall_name}}</option>
+                                @else
+                                    <option value="{{$hall->id}}" >{{$hall->hall_name}}</option>
+
+                            @endif
+
+                        @endforeach
+                        </select>
                     </div>
                 </div>
             <div class="mb-3">
@@ -85,4 +99,28 @@
             </div>
         </form>
     </div>
+
+
+    <script>
+        function hallSetup() {
+            var branchId = document.getElementById('branchName').value;
+            var hallSelect = document.getElementById('hallName');
+
+            // Remove existing options
+            hallSelect.innerHTML = '<option disabled selected>- Select Hall -</option>';
+
+            // Add new options based on the selected branch
+            @foreach($branches as $branch)
+            if ("{{ $branch->id }}" === branchId) {
+                @foreach($branch->halls as $hall)
+                var option = document.createElement("option");
+                option.value = "{{ $hall->id }}";
+                option.text = "{{ $hall->hall_name }}";
+
+                hallSelect.add(option);
+                @endforeach
+            }
+            @endforeach
+        }
+    </script>
 @endsection

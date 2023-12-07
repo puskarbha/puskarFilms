@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
-  <a href="#" class="brand-link">
+  <a href="{{route('adminPage')}}" class="brand-link">
     <img src='{{asset("assets/dist/img/AdminLTELogo.png")}}' alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
       style="opacity: .8">
     <span class="brand-text font-weight-light">Puskar Films</span>
@@ -55,12 +55,20 @@
         </li>
         <li class="nav-item">
           <a href="{{route('branches.index')}}" class="nav-link">
-            <i class="nav-icon fas fa-th"></i>
+              <i class="fa-solid fa-code-branch"></i>
             <p>
               Branch
             </p>
           </a>
         </li>
+          <li class="nav-item">
+              <a href="{{route('halls.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>
+                     Hall
+                  </p>
+              </a>
+          </li>
           <li class="nav-item">
               <a href="{{route('movies.index')}}" class="nav-link">
                   <i class="nav-icon far fa-image"></i>

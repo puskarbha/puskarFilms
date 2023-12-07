@@ -12,19 +12,18 @@ class SeatsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->createSeats(1, 'A', 20);
-        $this->createSeats(1, 'B', 20);
-        $this->createSeats(2, 'A', 20);
-        $this->createSeats(2, 'B', 20);
+        $this->createSeats( '1', 20);
+        $this->createSeats( '2', 20);
+        $this->createSeats( '3', 20);
+        $this->createSeats( '4', 20);
     }
 
-    private function createSeats($branchId, $hallName, $numberOfSeats)
+   public function createSeats( $hallID, $numberOfSeats)
     {
         for ($i = 1; $i <= $numberOfSeats; $i++) {
-            $seatName = $branchId . $hallName . $i;
+            $seatName = $hallID . $i;
             DB::table('seats')->insert([
-                'branch_id' => $branchId,
-                'hall_name' => $hallName,
+                'hall_id' => $hallID,
                 'seat_name' => $seatName,
                 'created_at' => now(),
                 'updated_at' => now(),

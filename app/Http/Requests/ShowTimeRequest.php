@@ -24,9 +24,9 @@ class ShowTimeRequest extends FormRequest
     {
         return [
             'movie_id' => 'required|exists:movies,id',
+            'hall_id' => 'required|exists:halls,id',
+            'date'=>'required|date',
             'time' => 'required|',
-           'date'=>'required|date',
-            'branch_id' => 'required|',
             'status' => 'required|string',
         ];
     }

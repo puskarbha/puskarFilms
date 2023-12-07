@@ -37,8 +37,12 @@ class ShowTimeController extends Controller
      */
     public function store(ShowTimeRequest $request)
     {
+
+
         $validatedData = $request->validated();
+//        dd($validatedData);
         $showTime = new ShowTime($validatedData);
+//        dd($showTime);
         $showTime->save();
         return redirect()->route('show_times.index')->with('message', 'ShowTime created successfully');
     }

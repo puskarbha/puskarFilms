@@ -4,7 +4,7 @@
         <div class="row top_1">
             <div class="col-md-3">
                 <div class="top_1l pt-1">
-                    <h3 class="mb-0"><a class="text-white" href="index.html"><i
+                    <h3 class="mb-0"><a class="text-white" href="{{route('home')}}"><i
                                 class="fa fa-video-camera col_red me-1"></i> P-Films</a></h3>
                 </div>
             </div>

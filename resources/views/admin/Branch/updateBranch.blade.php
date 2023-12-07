@@ -17,40 +17,12 @@
             >
         </div>
         <div class="mb-3">
-            <label for="">Halls</label>
-            <div id="container" class="mx-5">
-                @if ($branch->halls)
-                    @foreach (json_decode($branch->halls, true) as $hall)
-                        Hall Name: <input type="text" class="form-control" id="halls" name="hall[]" value="{{ $hall }}">
-                        <br>
-                    @endforeach
-                @endif
-            </div>
-            <a href="#" id="filldetails" class="btn btn-primary mt-2 mx-5" onclick="addFields()">
-                Add hall
-                <i class="fa-solid fa-circle-plus" style="color: #99c1f1;"></i>
-            </a>
-        </div>
-
-        <div class="mb-3">
             <button type="submit" class="btn btn-primary">Update</button>
         </div>
     </form>
+
 </div>
 
-<script type='text/javascript'>
-    function addFields() {
-        var container = document.getElementById("container");
 
-        container.appendChild(document.createTextNode("Hall Name:"));
-
-        var input = document.createElement("input");
-        input.type = "text";
-        input.name = "hall[]";
-        input.className = "form-control";
-        container.appendChild(input);
-        container.appendChild(document.createElement("br"));
-    }
-</script>
 
 @endsection

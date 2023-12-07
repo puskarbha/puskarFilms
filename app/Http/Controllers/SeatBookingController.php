@@ -58,6 +58,8 @@ class SeatBookingController extends Controller
                 'user_id' => $validated['user_id'],
                 'reservation_status' => $validated['reservation_status'],
             ]);
+
+            
             $seat_booking->save();
         }
         return redirect()->route('home')->with('message','Ticket reserved successfully');
