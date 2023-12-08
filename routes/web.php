@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\BranchController;
-use App\Http\Controllers\Cinema;
 use App\Http\Controllers\HallController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MovieController;
@@ -26,7 +25,6 @@ Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/available_shows',[HomeController::class,'available_shows'])->name('available_shows');
 Route::get('/movie/{id}',[HomeController::class,'movieDetails'])->name('home.movieDetails');
 Route::get('/hall_seats/{show_id}',[HomeController::class,'hall_seats'])->name('hall_seats');
-//Route::delete('/deleteHall/{hall_id}',[BranchController::class,'deleteHall'])->name('deleteHall');
 Route::group(['middleware' => ['admin']], function () {
 
 

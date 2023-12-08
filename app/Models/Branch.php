@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Branch extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'manager_id', 'address','halls'];
+    use SoftDeletes;
+    protected $fillable = ['name', 'manager_id', 'address'];
 
     public function manager(){
         return $this->belongsTo(User::class);

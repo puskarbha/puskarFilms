@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ShowTimeRequest extends FormRequest
+class HallRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -18,17 +17,14 @@ class ShowTimeRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array<mixed>|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-
-            'movie_id' => 'required|exists:movies,id',
-            'hall_id' => 'required|exists:halls,id',
-            'date'=>'required|date',
-            'time' => 'required|',
-            'status' => 'required|string',
+            'halls' => 'required|array',
+            'seat_limits' => 'required|array',
+            'branch_id'=>'required|array',
         ];
     }
 }

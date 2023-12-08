@@ -32,10 +32,11 @@ class HomeController extends Controller
 
 
     public function hall_seats($show_id){
+
         $branches=Branch::all(); // for footer
         $show=ShowTime::findOrFail($show_id);
-        $seats=Seats::where('branch_id',$show->branch_id)->where('hall_name',$show->hall)->get();
-        $booked_seats=SeatBooking::where('show_time_id', $show_id)->pluck('seat_no');//fetch booked seat list
+        $seats=Seats::where('hall_id',$show->hall_id)->get();
+        $booked_seats=SeatBooking::where('show_time_id', $show_id)->pluck('seat_id');//fetch booked seat list
 
         return view('home.seats',compact('seats','branches','show','booked_seats'));
         }

@@ -1,43 +1,42 @@
-<form action="{{route('halls.update',$branch->id)}}"  method="Post">
-    <div class="mb-3">
-        <label for="">Halls</label>
-        <div id="container" class="mx-5">
-            @if ($branch->halls)
-                @foreach ($branch->halls as $hall)
-                    <div class="row">
-                        Hall Name: {{$hall->hall_name}}
-                        <form action="{{route('halls.destroy',$hall->id)}}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger">Delete</button>
-                        </form>
-                    </div>
-                @endforeach
-            @endif
-        </div>
-        <a href="#" id="filldetails" class="btn btn-primary mt-2 mx-5" onclick="addFields()">
-            Add hall
-            <i class="fa-solid fa-circle-plus" style="color: #99c1f1;"></i>
-        </a>
+@extends('layouts.admin')
+@section('adminContent')
+
+    <div class="addBranch--form ml-3 mr-3">
+
+        <form action="{{route('halls.update',$hall->id)}}"  method="post">
+            @csrf
+            @method('PUT')
+            <div class="mb-3">
+                <label for="">Halls</label>
+                <div id="container" class="mx-5 " >
+
+                    Branch Name:
+                    <select name="branch_id[]" class="branch-select"  >
+                        <option selected disabled>- Select Branch -</option>
+                        @foreach($branches as $branch)
+                            @if($hall->branch->id== $branch->id)
+                            <option value="{{ $branch->id }}" selected>{{ $branch->name }}</option>
+                            @else
+                                <option value="{{ $branch->id }}" >{{ $branch->name }}</option>
+                            @endif
+
+                        @endforeach
+                    </select>
+                    Hall Name:  <input type="text"  id="halls" name="halls[]" style="width: 100px" value="{{$hall->hall_name}}">
+                    Seat Limit: <input type="number"  id="seat_limit" name="seat_limits[]"  style="width: 50px" min="0" value="{{$seatQuantity}}">
+                    <br>
+                </div>
+
+            </div>
+
+            <div class="mb-3 text-center">
+                <button type="submit" class="btn btn-success">Submit</button>
+            </div>
+        </form>
+        {{$errors}}
     </div>
 
-    <div class="mb-3">
-        <button type="submit" class="btn btn-primary">Update</button>
-    </div>
-</form>
+@endsection
 
-<script type='text/javascript'>
-    function addFields() {
-        var container = document.getElementById("container");
-
-        container.appendChild(document.createTextNode("Hall Name:"));
-        var input = document.createElement("input");
-        input.type = "text";
-        input.name = "hall[]";
-        input.className = "form-control";
-        container.appendChild(input);
-        container.appendChild(document.createElement("br"));
-    }
-</script>
 
 

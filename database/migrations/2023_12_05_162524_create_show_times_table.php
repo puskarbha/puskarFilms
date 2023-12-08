@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('date');
             $table->time('time');
             $table->enum('status', ['Showing_now','Coming_soon','out'])->default('Coming_soon');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -18,16 +18,25 @@ class SeatsTableSeeder extends Seeder
         $this->createSeats( '4', 20);
     }
 
-   public function createSeats( $hallID, $numberOfSeats)
+    public function createSeats($hallID, $numberOfSeats)
     {
+        $rowCounter = 1;
+
         for ($i = 1; $i <= $numberOfSeats; $i++) {
-            $seatName = $hallID . $i;
+            $row = chr(64 + $rowCounter);
+
+            $seatName = $row . $i;
+
             DB::table('seats')->insert([
                 'hall_id' => $hallID,
                 'seat_name' => $seatName,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
+
+            if ($i % 5 == 0) {
+                $rowCounter++;
+            }
         }
     }
 }

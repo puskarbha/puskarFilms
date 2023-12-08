@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('branch_id')->constrained('branches')->onDelete('cascade');
             $table->string('hall_name');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

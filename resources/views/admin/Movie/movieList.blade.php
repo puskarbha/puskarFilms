@@ -12,7 +12,7 @@
         </div>
 
         @if($movies->count() > 0)
-            <table class="table table-striped table-hover">
+            <table class="table table-responsive table-striped table-hover">
                 <thead>
                 <tr>
                     <th>ID</th>

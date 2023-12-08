@@ -12,7 +12,7 @@
         </div>
 
         @if($branches->count() > 0)
-            <table class="table table-bordered">
+            <table class="table table-bordered table-responsive table-striped table-hover">
                 <thead>
                 <tr>
                     <th>ID</th>

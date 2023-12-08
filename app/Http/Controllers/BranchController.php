@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Http\Requests\BranchRequest;
 use App\Models\Branch;
 use App\Models\Hall;
 use App\Models\User;
@@ -11,15 +13,7 @@ use Illuminate\Http\Request;
 class BranchController extends Controller
 {
 
-    protected function branchValidation(){
-        return[
-            'branchName' => 'required|string|max:255',
-            'branchAddress' => 'required|string|max:255',
-            'halls' => 'array',
-            'seat_limits' => 'array',
 
-        ];
-    }
     /**
      * Display a listing of the resource.
      */
@@ -40,40 +34,38 @@ class BranchController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BranchRequest $request)
     {
-        $user = new User();
-        $user->name = $request->input('userName');
-        $user->email = $request->input('userEmail');
-        $user->password = $request->input('userPassword');
-        $user->role = 2;
+        $validatedData = $request->validated();
+        $user = new User([
+            'name' => $validatedData['userName'],
+            'email' => $validatedData['userEmail'],
+            'password' => $validatedData['userPassword'],
+            'role' => 2,
+        ]);
         $user->save();
-
         $userID = $user->id;
 
 
-        $validatedData = $request->validate($this->branchValidation());
-        $branchName = $validatedData['branchName'];
-        $branchAddress = $validatedData['branchAddress'];
-        $branchHall=$validatedData['halls'];
-        $seat_limit=$validatedData['seat_limits'];
 
-        $branch = new Branch();
-        $branch->name =$branchName;
-        $branch->manager_id = $userID;
-        $branch->address =$branchAddress;
+        $branch = new Branch([
+            'name'=>$validatedData['branchName'],
+            'address'=>$validatedData['branchAddress'],
+            'manager_id' => $userID,
+        ]);
         $branch->save();
 
-        $hallsCount = count($request->input('halls'));
+        $hallsCount = count($validatedData['halls']);
         for($i=0;$i<$hallsCount;$i++)
         {
 
-            $hall= new Hall();
-            $hall->branch_id=$branch->id;
-            $hall->hall_name = $branchHall[$i];
+            $hall = new Hall([
+                'branch_id' => $branch->id,
+                'hall_name' => $validatedData['halls'][$i],
+            ]);
             $hall->save();
             $seeder = new SeatsTableSeeder();
-            $seeder->createSeats($hall->id,  $seat_limit[$i]);
+            $seeder->createSeats($hall->id,  $validatedData['seat_limits'][$i]);
 
         }
 
@@ -104,15 +96,13 @@ class BranchController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(BranchRequest $request, string $id)
     {
         $branch = Branch::findOrFail($id);
 
-        $validatedData = $request->validate($this->branchValidation());
+        $validatedData = $request->validated();
         $branchName = $validatedData['branchName'];
         $branchAddress = $validatedData['branchAddress'];
-
-
         $branch->name = $branchName;
         $branch->address = $branchAddress;
 
@@ -125,7 +115,6 @@ class BranchController extends Controller
      */
     public function destroy(string $id)
     {
-
         Branch::find($id)->delete();
         return redirect()->route('branches.index')->with('message', ' Branch deleted successfully ');
     }

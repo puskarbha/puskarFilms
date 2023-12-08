@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\HallRequest;
 use App\Models\Branch;
 use App\Models\Hall;
+use App\Models\Seats;
 use App\Models\User;
 use Database\Seeders\SeatsTableSeeder;
 use Illuminate\Http\Request;
@@ -40,10 +42,10 @@ class HallController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(HallRequest $request)
     {
 
-        $validatedData = $request->validate($this->hallValidation());
+        $validatedData = $request->validated();
         $hallsCount = count($validatedData['halls']);
         $branch_ids=$validatedData['branch_id'];
         $branchHalls=$validatedData['halls'];
@@ -77,15 +79,38 @@ class HallController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
+        $hall=Hall::findOrFail($id);
+        $seats=Seats::where('hall_id',$id)->get();
+        $seatQuantity=$seats->count();
+        $branches=Branch::all();
+        return view('admin.Hall.updateHall',compact('hall','seatQuantity','branches'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(HallRequest $request, string $id)
     {
-        //
+        $validatedData = $request->validated();
+        $hallsCount = count($validatedData['halls']);
+        $branch_ids=$validatedData['branch_id'];
+        $branchHalls=$validatedData['halls'];
+        $seat_limits=$validatedData['seat_limits'];
+
+        for($i=0;$i<$hallsCount;$i++)
+        {
+
+            $hall= Hall::findOrFail($id);
+            $hall->branch_id=$branch_ids[$i];
+            $hall->hall_name = $branchHalls[$i];
+            $hall->save();
+            Seats::where('hall_id',$hall->id)->delete();
+            $seeder = new SeatsTableSeeder();
+            $seeder->createSeats($hall->id,  $seat_limits[$i]);
+
+        }
+        return redirect()->route('halls.index')->with('message', 'Halls updated successfully!');
     }
 
     /**
