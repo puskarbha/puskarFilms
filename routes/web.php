@@ -25,6 +25,9 @@ Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/available_shows',[HomeController::class,'available_shows'])->name('available_shows');
 Route::get('/movie/{id}',[HomeController::class,'movieDetails'])->name('home.movieDetails');
 Route::get('/hall_seats/{show_id}',[HomeController::class,'hall_seats'])->name('hall_seats');
+Route::get('/now-showing-movies',[HomeController::class,'nowShowingMovies'])->name('nowShowingMovies');
+Route::get('/upcoming-movies',[HomeController::class,'upcomingMovies'])->name('upcomingMovies');
+Route::resource('seat_bookings', SeatBookingController::class);
 Route::group(['middleware' => ['admin']], function () {
 
 
@@ -36,7 +39,6 @@ Route::group(['middleware' => ['admin']], function () {
     Route::resource('branches', BranchController::class);
     Route::resource('movies', MovieController::class);
     Route::resource('show_times',ShowTimeController::class);
-    Route::resource('seat_bookings', SeatBookingController::class);
     Route::resource('halls', HallController::class);
 
 

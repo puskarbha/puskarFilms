@@ -36,7 +36,7 @@
                             <td>{{ $show_time->movie->name }}</td>
                             <td>{{ $show_time->hall->branch->name}}</td>
                             <td>{{ $show_time->hall->hall_name}}</td>
-                            <td>{{$show_time->date}}</td>
+                            <td>{{$show_time->date_bs}}</td>
                             <td>{{$show_time->time}}</td>
                             <td>{{ $show_time->status }}</td>
                             <td>
@@ -56,8 +56,11 @@
 
             </table>
             </div>
-            <div class="d-flex">
+            <div class="d-flex justify-content-center">
                 {!! $show_times->links() !!}
+            </div>
+            <div class="text-center">
+                Showing {{ $show_times->firstItem() }} to {{ $show_times->lastItem() }} of {{ $show_times->total() }} items
             </div>
         @else
             <h1>No data Found</h1>

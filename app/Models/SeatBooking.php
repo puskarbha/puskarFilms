@@ -18,4 +18,17 @@ class SeatBooking extends Model
         'user_id',
         'reservation_status',
     ];
+
+    public  function hall(){
+        return $this->belongsTo(Hall::class);
+    }
+    public function seats()
+    {
+        return $this->hasMany(Seats::class, 'id', 'seat_id');
+    }
+    public  function showTime(){
+        return $this->belongsTo(showTime::class);
+    }
+
+
 }

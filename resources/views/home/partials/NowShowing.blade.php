@@ -10,7 +10,7 @@
             </div>
             <div class="col-md-6 col-6">
                 <div class="trend_1r text-end">
-                    <h6 class="mb-0"><a class="button" href="#"> View All</a></h6>
+                    <h6 class="mb-0"><a class="button" href="{{route('nowShowingMovies')}}"> View All</a></h6>
                 </div>
             </div>
         </div>

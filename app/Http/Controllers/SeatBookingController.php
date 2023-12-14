@@ -3,14 +3,20 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Requests\SeatBookingRequest;
+use App\Models\Branch;
 use App\Models\SeatBooking;
+use App\Models\Seats;
 use App\Models\ShowTime;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Mail;
 
 class SeatBookingController extends Controller
 {
 
-
+    use Notifiable;
     /**
      * Display a listing of the resource.
      */
@@ -30,29 +36,40 @@ class SeatBookingController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SeatBookingRequest $request)
     {
 
-        $validated = $request->validate([
-            'show_time_id' => 'required|exists:show_times,id',
-            'seats' => 'required|array|min:1|max:5',
-        ]);
-
+        $validated = $request->validated();
         $show = ShowTime::findOrFail($validated['show_time_id']);
 
-        foreach ($validated['seats'] as $seat) {
+        foreach ($validated['seats'] as $seatId) {
+            $seat = Seats::findOrFail($seatId);
             $seat_booking = new seatBooking();
             $seat_booking->fill([
                 'movie_id' => $show->movie_id,
                 'hall_id' => $show->hall_id,
                 'show_time_id' => $validated['show_time_id'],
-                'seat_id' => $seat,
+                'seat_id' => $seatId,
                 'user_id' => auth()->user()->id,
                 'reservation_status' => "reserved",
             ]);
-            $seat_booking->save();
+        $seat_booking->save();
+            //for Notifications
+            $managerID=$seat_booking->hall->branch->manager_id;
+            $manager=User::findOrFail($managerID);
+            $manager->notify($seat_booking);
+
+        $seatBookings[] = $seat_booking;
         }
-        return redirect()->route('home')->with('message','Ticket reserved successfully');
+        //for Email
+      $user=auth()->user();
+        Mail::send('emails.ticketConfirmation', ['seatBookings' => $seatBookings,'user'=>$user], function ($message)  use ($user){
+            $message->to($user->email, $user->name)
+                ->subject('SeatBooked');
+        });
+
+
+        return redirect()->route('home')->with('message', 'Ticket reserved successfully');
     }
 
 

@@ -46,28 +46,36 @@
                             <a class="nav-link active" id="custom-tabs-three-day1-tab" data-toggle="pill"
                                href="#custom-tabs-three-day1" role="tab" aria-controls="custom-tabs-three-day1"
                                aria-selected="true">
-                                {{now()->format('d-M D')}} (Today)
+                                <span id="nepali_day0">
+
+                                </span> (Today)
                             </a>
                         </li>
                         <li class="nav-item w-25">
                             <a class="nav-link" id="custom-tabs-three-day2-tab" data-toggle="pill"
                                href="#custom-tabs-three-day2" role="tab" aria-controls="custom-tabs-three-day2"
                                aria-selected="false">
-                                {{ now()->addDay(1)->format('d-M D')}}
+                             <span id="nepali_day1">
+
+                                </span>
                             </a>
                         </li>
                         <li class="nav-item w-25">
                             <a class="nav-link" id="custom-tabs-three-day3-tab" data-toggle="pill"
                                href="#custom-tabs-three-day3" role="tab" aria-controls="custom-tabs-three-day3"
                                aria-selected="false">
-                                {{ now()->addDay(2)->format('d-M D')}}
+                              <span id="nepali_day2">
+
+                                </span>
                             </a>
                         </li>
                         <li class="nav-item w-25">
                             <a class="nav-link" id="custom-tabs-three-day4-tab" data-toggle="pill"
                                href="#custom-tabs-three-day4" role="tab" aria-controls="custom-tabs-three-day4"
                                aria-selected="false">
-                                {{ now()->addDay(3)->format('d-M D')}}
+                               <span id="nepali_day3">
+
+                                </span>
                             </a>
                         </li>
                     </ul>
@@ -309,7 +317,29 @@
             </div>
         </div>
     </div>
+    <script>
 
+
+
+        document.getElementById('nepali_day0').innerText =
+            NepaliFunctions.GetCurrentBsDay()+"-"+NepaliFunctions.GetBsMonth(NepaliFunctions.GetCurrentBsMonth());
+
+
+        document.getElementById('nepali_day1').innerText =
+        NepaliFunctions.BsAddDays(NepaliFunctions.GetCurrentBsDate('YYYY-MM-DD'), 1, 'YYYY-MM-DD');
+
+        document.getElementById('nepali_day2').innerText =
+            NepaliFunctions.BsAddDays(NepaliFunctions.GetCurrentBsDate('YYYY-MM-DD'), 2, 'YYYY-MM-DD');
+
+        document.getElementById('nepali_day3').innerText =
+            NepaliFunctions.BsAddDays(NepaliFunctions.GetCurrentBsDate('YYYY-MM-DD'), 3, 'YYYY-MM-DD')
+        // document.getElementById('nepali_day1').innerText =
+        //     NepaliFunctions.GetCurrentBsDay()+1+"-"+NepaliFunctions.GetBsMonth(NepaliFunctions.GetCurrentBsMonth());
+        // document.getElementById('nepali_day2').innerText =
+        //     NepaliFunctions.GetCurrentBsDay()+2+"-"+NepaliFunctions.GetBsMonth(NepaliFunctions.GetCurrentBsMonth());
+        // document.getElementById('nepali_day3').innerText =
+        //     NepaliFunctions.GetCurrentBsDay()+3+"-"+NepaliFunctions.GetBsMonth(NepaliFunctions.GetCurrentBsMonth());
+    </script>
     <!-- jQuery -->
     <script src="{{asset('assets/plugins/jquery/jquery.min.js')}}"></script>
     <!-- AdminLTE App -->

@@ -40,10 +40,24 @@ class ShowTimeController extends Controller
 
 
         $validatedData = $request->validated();
-//        dd($validatedData);
-        $showTime = new ShowTime($validatedData);
-//        dd($showTime);
-        $showTime->save();
+
+        $length=count($validatedData['movie_id']);
+        for($i=0;$i<$length;$i++)
+        {
+            $show=new ShowTime();
+
+
+            $show->fill([
+                'movie_id' => $validatedData['movie_id'][$i],
+                'hall_id' => $validatedData['hall_id'][$i],
+                'date_bs' =>  $validatedData['date_bs'][$i],
+                'date_ad' =>  $validatedData['date_ad'][$i],
+                'time' =>  $validatedData['time'][$i],
+                'status' => $request->input("status_".($i+1)),
+            ]);
+
+            $show->save();
+        }
         return redirect()->route('show_times.index')->with('message', 'ShowTime created successfully');
     }
 

@@ -18,6 +18,8 @@
     <link rel="stylesheet" href='{{asset("assets/dist/css/adminlte.min.css")}}'>
     <!-- overlayScrollbars e-->
     <link rel="stylesheet" href='{{asset("assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")}}'>
+{{--Nepali date--}}
+    <link href="https://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/css/nepali.datepicker.v4.0.1.min.css" rel="stylesheet" type="text/css"/>
 
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -56,6 +58,9 @@
 <!-- AdminLTE App -->
 <script src='{{asset("assets/dist/js/adminlte.js")}}'></script>
 <script src='{{asset("index.js")}}'></script>
+{{--Neplai date --}}
+<script src="https://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/js/nepali.datepicker.v4.0.1.min.js" type="text/javascript"></script>
+
 
 </body>
 </html>

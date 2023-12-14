@@ -14,7 +14,8 @@ class ShowTime extends Model
         'movie_id',
         'duration',
         'hall_id',
-        'date',
+        'date_bs',
+        'date_ad',
         'time',
         'status',
 
@@ -30,5 +31,9 @@ class ShowTime extends Model
     }
     public function hall(){
         return $this->belongsTo(Hall::class);
+    }
+
+    public function seatBooking(){
+        return $this->hasMany(SeatBooking::class);
     }
 }

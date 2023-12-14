@@ -61,7 +61,9 @@
                 </div>
             <div class="mb-3">
                 <label for="date" class="form-label">date</label>
-                <input type="date" class="form-control" id="date" name="date" required value="{{$showTime->date}}">
+                <input type="text" class="form-control date_bs"  name="date_bs" required value="{{$showTime->date_bs}}">
+                <input type="date" class="form-control date_ad"  name="date_ad" required value="{{$showTime->date_ad}}">
+
             </div>
             <div class="mb-3">
                 <label for="time" class="form-label">Time</label>
@@ -102,6 +104,18 @@
 
 
     <script>
+        window.onload = function() {
+            var mainInput = document.querySelector(".date_bs");
+            mainInput.nepaliDatePicker();
+        };
+        function BSTOAD(){
+            var nepaliDate=document.querySelector('.date_bs').value;
+            var adDate=NepaliFunctions.BS2AD(nepaliDate);
+            document.querySelector('.date_ad').value=adDate;
+        }
+        setInterval(() => {
+            BSTOAD();
+        }, 30);
         function hallSetup() {
             var branchId = document.getElementById('branchName').value;
             var hallSelect = document.getElementById('hallName');

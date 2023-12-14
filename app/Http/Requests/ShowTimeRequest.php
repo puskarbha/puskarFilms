@@ -26,9 +26,10 @@ class ShowTimeRequest extends FormRequest
 
             'movie_id' => 'required|exists:movies,id',
             'hall_id' => 'required|exists:halls,id',
-            'date'=>'required|date',
+            'date_ad'=>'required',
+            'date_bs'=>'required',
             'time' => 'required|',
-            'status' => 'required|string',
+
         ];
     }
 }

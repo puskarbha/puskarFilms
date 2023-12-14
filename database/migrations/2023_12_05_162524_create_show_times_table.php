@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('movie_id')->constrained('movies')->onDelete('cascade');
             $table->foreignId('hall_id')->constrained('halls')->onDelete('cascade');
-            $table->date('date');
+            $table->date('date_bs');
+            $table->date('date_ad');
             $table->time('time');
             $table->enum('status', ['Showing_now','Coming_soon','out'])->default('Coming_soon');
             $table->softDeletes();

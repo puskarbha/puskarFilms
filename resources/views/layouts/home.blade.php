@@ -14,9 +14,16 @@
     <link href='{{asset("https://fonts.googleapis.com/css2?family=Rajdhani&display=swap")}}' rel="stylesheet">
     <script src='{{asset("home/js/bootstrap.bundle.min.js")}}'></script>
 
+
+    {{--Nepali date--}}
+    <link href="https://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/css/nepali.datepicker.v4.0.1.min.css" rel="stylesheet" type="text/css"/>
+    {{--Neplai date --}}
+    <script src="https://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/js/nepali.datepicker.v4.0.1.min.js" type="text/javascript"></script>
+
 </head>
 
 <body>
+
 @include('home.partials.topHeader')
 @include('home.partials.header')
 @if(session()->has('message'))
@@ -29,7 +36,7 @@
 
 @include('home.partials.footer')
 
-<script src='{{asset("home/js/bootstrap.bundle.min.js")}}'></script>
+
 <script>
     window.onscroll = function () { myFunction() };
 
@@ -47,7 +54,6 @@
         }
     }
 </script>
-
 
 
 </body>
