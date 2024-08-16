@@ -3,7 +3,10 @@
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\HallController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LocalizationController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\SeatBookingController;
 use App\Http\Controllers\ShowTimeController;
 use Illuminate\Support\Facades\Route;
@@ -28,9 +31,17 @@ Route::get('/hall_seats/{show_id}',[HomeController::class,'hall_seats'])->name('
 Route::get('/now-showing-movies',[HomeController::class,'nowShowingMovies'])->name('nowShowingMovies');
 Route::get('/upcoming-movies',[HomeController::class,'upcomingMovies'])->name('upcomingMovies');
 Route::resource('seat_bookings', SeatBookingController::class);
+Route::resource('pages', PageController::class);
+
+
+Route::get('DepartureForm', function () {
+    return view('home.DepartureForm');
+})->name('DepartureForm');
+
+
+
+
 Route::group(['middleware' => ['admin']], function () {
-
-
 
     Route::get('/adminPage', function () {
         return view('admin.adminDashboard');
@@ -45,5 +56,7 @@ Route::group(['middleware' => ['admin']], function () {
 
 });
 
+Route::get('language/{locale}',[LocalizationController::class, 'changeLanguage'])->name('changelanguage');
 
-
+Route::get('/contact-form',[PageController::class,'contactPage'])->name('contactPage');
+Route::resource('Posts', PostController::class);

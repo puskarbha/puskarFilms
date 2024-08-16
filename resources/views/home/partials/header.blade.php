@@ -40,17 +40,28 @@
                             Pages
                         </a>
                         <ul class="dropdown-menu drop_1" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="about.html">About Us</a></li>
-                            <li><a class="dropdown-item" href="services.html">Services</a></li>
-                            <li><a class="dropdown-item" href="team.html">Team</a></li>
-                            <li><a class="dropdown-item border-0" href="contact.html">Contact</a></li>
+
+
+
+
+                            @foreach(getPageNames() as $pageName)
+
+                                <li><a class="dropdown-item" href={{route('pages.show',$pageName->id)}}>{{$pageName->title['en']}}</a></li>
+                            @endforeach
+
                         </ul>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact Us</a>
-                    </li>
+                        <a class="nav-link" href="{{ route('Posts.create') }}">Posts</a>
 
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('DepartureForm')}}">Departure</a>
+                    </li>
+                    <li class="nav-item">
+                        @include('language_switcher')
+                    </li>
                     @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">Login</a>
@@ -77,6 +88,8 @@
                             </div>
                         </li>
                     @endguest
+
+
                 </ul>
             </div>
         </div>

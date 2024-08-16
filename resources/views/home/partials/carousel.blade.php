@@ -36,7 +36,7 @@
                         {{$nowShowing->movie->cast}}</p>
                     <p class="mb-2"><span class="col_red me-1 fw-bold">Genres:</span>
                         {{$nowShowing->movie->genre}}</p>
-                    <p><span class="col_red me-1 fw-bold">Runtime:</span> {{$nowShowing->duration}} min</p>
+                    <p><span class="col_red me-1 fw-bold">{{__('Runtime')}}:</span> {{$nowShowing->duration}} min</p>
                     <h6 class="mt-4 text-center">
                         <a class="bg_red p-2 pe-4 ps-4 ms-3 text-white d-inline-block " href="{{route('home.movieDetails',$nowShowing->movie->id)}}">Book Your Seat Now</a>
                     </h6>

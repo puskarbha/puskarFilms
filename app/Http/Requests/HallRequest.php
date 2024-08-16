@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\ReCaptcha;
 use Illuminate\Foundation\Http\FormRequest;
 
 class HallRequest extends FormRequest
@@ -25,6 +26,7 @@ class HallRequest extends FormRequest
             'halls' => 'required|array',
             'seat_limits' => 'required|array',
             'branch_id'=>'required|array',
+            'g-recaptcha-response' => ['required', new ReCaptcha]
         ];
     }
 }

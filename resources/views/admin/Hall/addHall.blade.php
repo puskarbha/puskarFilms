@@ -1,9 +1,10 @@
 @extends('layouts.admin')
 @section('adminContent')
 
+@dd(Breadcrumbs::render())
     <div class="addBranch--form ml-3 mr-3">
 
-        <form action="{{route('halls.store')}}"  method="post">
+        <form action="{{route('halls.store')}}"  method="post" id="contactUSForm">
             @csrf
             <div class="mb-3">
                 <label for="">Halls</label>
@@ -23,7 +24,9 @@
                     <i class="fa-solid fa-circle-plus" style="color: #99c1f1;"></i>
                 </a>
             </div>
-
+            @if ($errors->has('g-recaptcha-response'))
+            <span class="text-danger">{{ $errors->first('g-recaptcha-response') }}</span>
+        @endif
             <div class="mb-3 text-center">
                 <button type="submit" class="btn btn-success">Submit</button>
             </div>
@@ -59,5 +62,18 @@
             container.appendChild(sl_input);
             container.appendChild(document.createElement("br"));
         }
+
+
+
+        $('#contactUSForm').submit(function(event) {
+        event.preventDefault();
+
+        grecaptcha.ready(function() {
+            grecaptcha.execute("{{ env('GOOGLE_RECAPTCHA_KEY') }}", {action: 'subscribe_newsletter'}).then(function(token) {
+                $('#contactUSForm').prepend('<input type="hidden" name="g-recaptcha-response" value="' + token + '">');
+                $('#contactUSForm').unbind('submit').submit();
+            });;
+        });
+    });
     </script>
 @endsection
