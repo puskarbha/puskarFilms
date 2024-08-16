@@ -26,12 +26,7 @@
 
 @include('home.partials.topHeader')
 @include('home.partials.header')
-@if(session()->has('message'))
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        {{session()->get('message')}}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-@endif
+
 @yield('homeContent')
 
 @include('home.partials.footer')

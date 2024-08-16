@@ -85,6 +85,12 @@ return [
 
     'locale' => 'en',
 
+
+    'available_locales' => [
+        'English' => 'en',
+        'Nepali' => 'np',
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale
@@ -169,6 +175,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
+        App\Providers\HelperServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
+        BabDev\Breadcrumbs\Providers\BreadcrumbsServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -183,7 +193,10 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'Example' => App\Facades\Example::class,
+        'Breadcrumbs' => BabDev\Breadcrumbs\Facades\Breadcrumbs::class,
+        'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
     ])->toArray(),
+
+
 
 ];

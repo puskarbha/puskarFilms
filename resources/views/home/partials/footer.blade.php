@@ -20,17 +20,17 @@
                     <div class="footer_1i">
                         <h4>Our  <span class="col_red">Branches</span></h4>
                         <div class="footer_1i1 row mt-4">
-                            @foreach($branches as $branch)
-                            <div class="col-md-3 col-3">
-                                <div class="footer_1i1i">
-                                    <div class="grid clearfix">
+{{--                            @foreach($branches as $branch)--}}
+{{--                            <div class="col-md-3 col-3">--}}
+{{--                                <div class="footer_1i1i">--}}
+{{--                                    <div class="grid clearfix">--}}
 
-                                            <a href="#">{{$branch->name}}</a>
+{{--                                            <a href="#">{{$branch->name}}</a>--}}
 
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            @endforeach--}}
 
                         </div>
                     </div>

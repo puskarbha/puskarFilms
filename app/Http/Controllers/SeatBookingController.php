@@ -11,8 +11,9 @@ use App\Models\ShowTime;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Mail;
-
+use App\Notifications\SeatBookingNotification;
 class SeatBookingController extends Controller
 {
 
@@ -38,7 +39,6 @@ class SeatBookingController extends Controller
      */
     public function store(SeatBookingRequest $request)
     {
-
         $validated = $request->validated();
         $show = ShowTime::findOrFail($validated['show_time_id']);
 
@@ -53,14 +53,16 @@ class SeatBookingController extends Controller
                 'user_id' => auth()->user()->id,
                 'reservation_status' => "reserved",
             ]);
-        $seat_booking->save();
-            //for Notifications
-            $managerID=$seat_booking->hall->branch->manager_id;
-            $manager=User::findOrFail($managerID);
-            $manager->notify($seat_booking);
+            $seatBookings[] = $seat_booking;
+            $seats[]=$seat->seat_names;
+            $seat_booking->save();
 
-        $seatBookings[] = $seat_booking;
         }
+        //for Notifications
+        $managerID=$show->hall->branch->manager;
+        $manager=User::findOrFail($managerID);
+        Notification::send($manager,new MyNotification(auth()->user()->name,$seats,$show->hall->hall_name));
+
         //for Email
       $user=auth()->user();
         Mail::send('emails.ticketConfirmation', ['seatBookings' => $seatBookings,'user'=>$user], function ($message)  use ($user){
